@@ -55,25 +55,28 @@ rm -rf /app
 validate $? "removing old code"
 mkdir -p /app
 validate $? "creating app directory"
-curl -L -o /tmp/app_name.zip https://raw.githubusercontent.com/daws-92s/roboshop-documentation/refs/heads/main/artifacts/catalogue-v4.zip &>>$logs_file
-validate $? "downloading app_name"
+curl -L -o /tmp/$app_name.zip https://raw.githubusercontent.com/daws-92s/roboshop-documentation/refs/heads/main/artifacts/$app_name.zip &>>$logs_file
+validate $? "downloading $app_name"
+
 cd /app
-unzip /tmp/app_name.zip &>>$logs_file
-validate $? "unzipping app_name"  
+unzip /tmp/$app_name.zip &>>$logs_file
+validate $? "unzipping $app_name"  
 }
 
 systemd_setup() 
 {
 sed -i "s/DOMAIN_NAME/$domain_name/g" "$scripts_dir/$app_name.service"
 cp "$scripts_dir/$app_name.service" /etc/systemd/system/$app_name.service
+
 systemctl daemon-reload &>>$logs_file
 systemctl enable $app_name &>>$logs_file
 systemctl start $app_name &>>$logs_file
+validate $? "starting and enabling $app_name"
 }
 
 restart(){
-    systemctl restart app_name
-    validate $? "restarting app_name"
+    systemctl restart $app_name
+    validate $? "restarting $app_name"
 }
 
 total_time() 
