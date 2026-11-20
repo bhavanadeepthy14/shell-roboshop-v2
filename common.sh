@@ -1,0 +1,37 @@
+#!/bin/bash
+
+user_id=$(id -u)
+logs_folder="/var/log/shell-practice"
+logs_file="${logs_folder}/${0}.log"
+R="\e[31m"
+G="\e[32m"
+Y="\e[33m"
+N="\e[0m"
+
+check_root() {
+if [ $user_id -ne 0 ]; then
+  echo "please run this script with sudo access.."
+  exit 1
+fi
+}
+
+mkdir -p $logs_folder
+
+ echo -e "$(timestamp) [INFO] ===== script started execution =====" | tee -a $logs_file 
+ 
+ validate () 
+{
+    if [ $1 -ne 0 ]; then
+        echo -e "$(timestamp) [ERROR] {$2}..${R}failed${N}" | tee -a $logs_file
+        exit 1
+    else
+        echo -e "$(timestamp) [INFO] {$2}..${G}success${N}" | tee -a $logs_file
+    fi
+}
+
+total_time() 
+{
+    echo "$(timestamp) [INFO] script completed in $SECONDS seconds" | tee -a $logs_file
+    echo "$(timestamp) [INFO] ===== script completed execution =====" | tee -a $logs_file
+  
+}
