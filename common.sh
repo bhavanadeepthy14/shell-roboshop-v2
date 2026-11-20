@@ -68,14 +68,12 @@ validate $? "unzipping app_name"
 
 systemd_setup() 
 {
-sed -i "s/DOMAIN_NAME/$domain_name/g" "$scripts_dir/app_name.service"
-cp "$scripts_dir/app_name.service" /etc/systemd/system/app_name.service
-validate $? "copying app_name systemd service file"
+sed -i "s/DOMAIN_NAME/$domain_name/g" "$scripts_dir/$app_name.service"
+cp "$scripts_dir/$app_name.service" /etc/systemd/system/$app_name.service
 
 systemctl daemon-reload &>>$logs_file
-systemctl enable app_name &>>$logs_file
-systemctl start app_name &>>$logs_file
-validate $? "enable and start app_name service"
+systemctl enable $app_name &>>$logs_file
+systemctl start $app_name &>>$logs_file
 }
 
 restart(){
