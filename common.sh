@@ -84,7 +84,6 @@ validate $? "downloading app_name"
 cd /app
 unzip /tmp/app_name.zip &>>$logs_file
 validate $? "unzipping app_name"  
-}
 
 systemd_setup() 
 {
