@@ -5,7 +5,7 @@ source ./common.sh
 
 check_root
 
-#app_setup
+app_setup
 nodejs_setup
 systemd_setup
 
