@@ -56,20 +56,21 @@ mv target/shipping.jar shipping.jar
 validate $? "moving shipping jar file"
 }
 
-echo "export JAVA_HOME=$(dirname $(dirname $(readlink -f /usr/bin/java)))" > /etc/profile.d/java.sh
-source /etc/profile.d/java.sh
-echo $JAVA_HOME
-validate $? "setting JAVA_HOME for maven" 
-}
-app_setup() 
-{
-id roboshop &>>$logs_file
-if [ $? -ne 0 ]; then
-useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop &>>$logs_file
-validate $? "creating roboshop system user"
-else
-    echo -e "$(timestamp) [INFO] system user roboshop already exists....${Y}skipping${N}" 
-fi
+#echo "export JAVA_HOME=$(dirname $(dirname $(readlink -f /usr/bin/java)))" > /etc/profile.d/java.sh
+#source /etc/profile.d/java.sh
+#echo $JAVA_HOME
+#validate $? "setting JAVA_HOME for maven" 
+#}
+ #app_setup() 
+#{
+#id roboshop &>>$logs_file
+#if [ $? -ne 0 ]; then
+#useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop &>>$logs_file
+#validate $? "creating roboshop system user"
+#else
+  #  echo -e "$(timestamp) [INFO] system user roboshop already exists....${Y}skipping${N}" 
+#fi
+ #)
 
 rm -rf /app 
 validate $? "removing old code"
