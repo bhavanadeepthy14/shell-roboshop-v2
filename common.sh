@@ -56,6 +56,18 @@ source /etc/profile.d/java.sh
 echo $JAVA_HOME
 validate $? "setting JAVA_HOME for maven" 
 
+python_setup()
+{
+dnf install python3.14 python3.14-pip -y &>>$logs_file
+validate $? "installing python3.14"
+python3.14 -m venv /app/.venv
+validate $? "creating virtual environment"
+
+/app/.venv/bin/pip install -r requirements.txt &>>$logs_file
+validate $? "installing dependencies"
+
+}
+
  app_setup() 
 {
 id roboshop &>>$logs_file
