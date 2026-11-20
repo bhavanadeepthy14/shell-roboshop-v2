@@ -55,8 +55,8 @@ rm -rf /app
 validate $? "removing old code"
 mkdir -p /app
 validate $? "creating app directory"
-curl -L -o /tmp/$app_name.zip https://raw.githubusercontent.com/daws-92s/roboshop-documentation/refs/heads/main/artifacts/$app_name-v4.zip &>>$logs_file
-validate $? "downloading $app_name"
+curl -L -o /tmp/catalogue.zip https://raw.githubusercontent.com/daws-92s/roboshop-documentation/refs/heads/main/artifacts/catalogue.zip &>>$logs_file
+validate $? "downloading catalogue"
 
 cd /app
 unzip /tmp/$app_name.zip &>>$logs_file
